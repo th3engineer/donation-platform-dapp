@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 import { campaignApi } from "api";
-import { Page } from "components";
+import { Page, Header } from "components";
 
 import {
   CampaignTitle,
@@ -19,6 +20,8 @@ const Campaign = () => {
     campaignId,
   });
 
+  const { connected } = useWallet();
+
   const {
     donations: { donations },
   } = campaignApi.getCampaignDonations.useQuery({ campaignId });
@@ -29,12 +32,13 @@ const Campaign = () => {
 
   return (
     <Page>
+      <Header />
       <Box
         sx={{
           display: "flex",
-          height: "calc(100vh - 64px)",
           alignItems: "center",
           justifyContent: "center",
+          padding: "32px 0",
         }}
       >
         <Box
@@ -66,12 +70,13 @@ const Campaign = () => {
             <CampaignDetail variant="body2">
               Charity: {campaign.charity_slug}
             </CampaignDetail>
-            <CampaignDetail variant="caption">
+            <CampaignDetail sx={{ marginBottom: "24px" }} variant="caption">
               Created at: {new Date(campaign.created_at).toDateString()}
             </CampaignDetail>
             <Button
-              sx={{ marginTop: "40px", marginLeft: "auto", display: "block" }}
+              sx={{ marginLeft: "auto", display: "block" }}
               variant="contained"
+              disabled={!connected}
             >
               Donate
             </Button>

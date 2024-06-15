@@ -1,24 +1,16 @@
 import React from "react";
-import { useRouter } from "next/router";
-import { Box, Typography, AppBar, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import { homeApi } from "api";
-import { Page } from "components";
+import { Page, Header } from "components";
 
 const Home = () => {
   const { activeCampaigns } = homeApi.getActiveCampaigns.useQuery(null);
 
   return (
     <Page>
-      <AppBar sx={{ padding: "16px 24px" }} position="static">
-        <Typography display="block" variant="h6" color="inherit" noWrap>
-          Eco Charities
-        </Typography>
-        <Typography variant="body2" color="inherit" noWrap>
-          Decentralized Donation Platform
-        </Typography>
-      </AppBar>
+      <Header />
       <Box sx={{ padding: "32px 0" }}>
         <Typography variant="h5" sx={{ marginBottom: "16px" }}>
           Latest campaigns

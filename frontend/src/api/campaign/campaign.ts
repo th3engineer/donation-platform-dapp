@@ -22,14 +22,13 @@ interface Donation {
   donation_id: string;
   donor_wallet_pubkey: string;
   donor_wallet_pda: string;
+  campaign_pda: string;
   amount: string;
   is_refunded: string;
   created_at: number;
 
-  // Of-chain
+  // Off-chain
   recepient_wallet_pda: string;
-  campaign_id: string;
-  user_id: string;
 }
 
 type GetCampaignDonationsResponse = {
