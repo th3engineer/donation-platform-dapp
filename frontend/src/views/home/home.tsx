@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { Box, Typography, AppBar, Button } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
@@ -71,7 +72,11 @@ const Home = () => {
                 <Typography variant="overline">
                   Goal: {campaign.collected} / {campaign.goal}
                 </Typography>
-                <Button endIcon={<ArrowForwardIcon />}>
+                <Button
+                  endIcon={<ArrowForwardIcon />}
+                  href={`/campaign/${campaign.campaign_id}`}
+                  target="_parent"
+                >
                   See full campaign
                 </Button>
               </Box>

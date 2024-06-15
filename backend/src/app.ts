@@ -11,6 +11,7 @@ require("dotenv").config();
 import { onError } from "./middlewares/error";
 import { getAllCharities } from "./storage/charity";
 import { getAllCampaigns } from "./storage/campaign";
+import { getAllDonations } from "./storage/donation";
 
 const router = new Router();
 
@@ -31,10 +32,36 @@ router.get("/campaign/:id", async (ctx) => {
   const id = ctx.params.id as string;
   const campaigns = await getAllCampaigns();
 
+  const campaign = campaigns.find((campaign) => campaign.campaign_id === id)
+
+  if (!campaign) {
+    ctx.status = 404;
+    ctx.body = { 
+      error: 'No campaign found',
+    }
+  }
+
   ctx.status = 200;
-  ctx.body = {
-    campaigns: campaigns.find((campaign) => campaign.campaign_id === id),
-  };
+  ctx.body = campaign
+});
+
+router.get("/campaign/:id/latest-donations", async (ctx) => {
+  const id = ctx.params.id as string;
+  const campaigns = await getAllCampaigns();
+
+  const campaign = campaigns.find((campaign) => campaign.campaign_id === id)
+
+  if (!campaign) {
+    ctx.status = 404;
+    ctx.body = { 
+      error: 'No campaign found',
+    }
+  }
+
+  const donations = await getAllDonations();
+
+  ctx.status = 200;
+  ctx.body = { donations: donations.filter(donation => donation.campaign_id === id)}
 });
 
 router.get("/charity/:slug", async (ctx) => {
@@ -43,7 +70,7 @@ router.get("/charity/:slug", async (ctx) => {
 
   ctx.status = 200;
   ctx.body = {
-    campaigns: charities.find((charity) => charity.slug === slug),
+    campaign: charities.find((charity) => charity.slug === slug),
   };
 });
 

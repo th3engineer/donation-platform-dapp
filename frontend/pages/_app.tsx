@@ -32,7 +32,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <CssBaseline />
       <ThemeProvider theme={lightTheme}>
         <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
+          <HydrationBoundary state={pageProps.dehydratedState}>
+            <Component {...pageProps} />
+          </HydrationBoundary>
         </QueryClientProvider>
       </ThemeProvider>
     </>
