@@ -1,7 +1,7 @@
 import http from "http";
 import { init } from "./app";
 
-const port = 3000;
+const port = 3001;
 
 const main = async () => {
   const app = await init();
