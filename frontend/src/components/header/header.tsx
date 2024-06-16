@@ -34,10 +34,10 @@ const Header = () => {
       >
         <Box>
           <Typography display="block" variant="h6" color="inherit" noWrap>
-            Eco CharitiesS
+            Open Charities Protocol
           </Typography>
           <Typography variant="body2" color="inherit" noWrap>
-            Decentralized Donation Platform
+            Version 0.0.1
           </Typography>
         </Box>
         <Box sx={{ marginLeft: "auto" }}>

@@ -2,10 +2,14 @@ import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
 import { Box, Button } from "@mui/material";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { format } from "date-fns";
 
 import { campaignApi } from "api";
 import { Page, Header } from "components";
+import { shortenPubkey } from "utils/shorten-pubkey";
 
+import ProgressBar from "./progress-bar";
+import CurrentCollected from "./current-collected";
 import {
   CampaignTitle,
   CampaignImage,
@@ -30,6 +34,21 @@ const Campaign = () => {
     return <Page>No campaign found!</Page>;
   }
 
+  const details: Array<{ key: string; value: string }> = [
+    {
+      key: "Deadline",
+      value: campaign.deadline,
+    },
+    {
+      key: "Charity",
+      value: campaign.charity_slug,
+    },
+    {
+      key: "Created at",
+      value: format(campaign.created_at, "MMM dd, yyyy h:mm:ss"),
+    },
+  ];
+
   return (
     <Page>
       <Header />
@@ -42,7 +61,12 @@ const Campaign = () => {
         }}
       >
         <Box
-          sx={{ display: "flex", alignItems: "flex-start", columnGap: "32px" }}
+          sx={{
+            flex: 2,
+            display: "flex",
+            alignItems: "flex-start",
+            columnGap: "32px",
+          }}
         >
           <Box
             sx={{
@@ -50,29 +74,26 @@ const Campaign = () => {
               padding: "20px",
             }}
           >
+            <ProgressBar
+              sx={{ marginBottom: "24px" }}
+              goal={campaign.goal}
+              collected={campaign.collected}
+            />
+            <CurrentCollected
+              sx={{ marginBottom: "24px" }}
+              goal={campaign.goal}
+              collected={campaign.collected}
+            />
             <CampaignTitle variant="h5">{campaign.name}</CampaignTitle>
             <CampaignImage src={campaign.imageUrl} alt={campaign.name} />
             <CampaignDescription variant="body1" paragraph>
               {campaign.description}
             </CampaignDescription>
-            <CampaignDetail variant="body2">
-              Goal: ${campaign.goal.toLocaleString()}
-            </CampaignDetail>
-            <CampaignDetail variant="body2">
-              Collected: ${campaign.collected.toLocaleString()}
-            </CampaignDetail>
-            <CampaignDetail variant="body2">
-              Deadline: {new Date(campaign.deadline).toDateString()}
-            </CampaignDetail>
-            <CampaignDetail variant="body2">
-              Status: {campaign.status}
-            </CampaignDetail>
-            <CampaignDetail variant="body2">
-              Charity: {campaign.charity_slug}
-            </CampaignDetail>
-            <CampaignDetail sx={{ marginBottom: "24px" }} variant="caption">
-              Created at: {new Date(campaign.created_at).toDateString()}
-            </CampaignDetail>
+            {details.map((d) => (
+              <CampaignDetail variant="body2">
+                {d.key}: {d.value}
+              </CampaignDetail>
+            ))}
             <Button
               sx={{ marginLeft: "auto", display: "block" }}
               variant="contained"
@@ -83,6 +104,8 @@ const Campaign = () => {
           </Box>
           <Box
             sx={{
+              flex: 1,
+              width: "35%",
               boxShadow: "0px 0px 48px 0px rgba(0, 0, 0, 0.25)",
               padding: "20px",
             }}
@@ -92,9 +115,26 @@ const Campaign = () => {
             </Typography>
             <Box>
               {donations.map((donation) => (
-                <Typography key={donation.donation_id}>
-                  $ {donation.amount}
-                </Typography>
+                <Box
+                  key={donation.donation_id}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: "8px",
+                  }}
+                >
+                  <Typography
+                    sx={{ color: (theme) => theme.palette.success.main }}
+                    variant="caption"
+                    color="success"
+                  >
+                    +{donation.amount} USDC
+                  </Typography>
+                  <Typography variant="caption">
+                    {shortenPubkey(donation.donor_wallet_pda)}
+                  </Typography>
+                </Box>
               ))}
             </Box>
           </Box>
