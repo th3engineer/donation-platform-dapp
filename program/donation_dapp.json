@@ -1,0 +1,538 @@
+{
+  "address": "EsCGgqjt6ZEoVL2qn2L271VgJJqVU3KViWwtAUHUdRgL",
+  "metadata": {
+    "name": "donation_dapp",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "cancel_campaign",
+      "discriminator": [66, 10, 32, 138, 122, 36, 134, 202],
+      "accounts": [
+        {
+          "name": "signer",
+          "signer": true
+        },
+        {
+          "name": "campaign_pda",
+          "writable": true
+        },
+        {
+          "name": "charity_pda",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_campaign",
+      "discriminator": [111, 131, 187, 98, 160, 193, 114, 244],
+      "accounts": [
+        {
+          "name": "charity_pda",
+          "writable": true
+        },
+        {
+          "name": "campaign_pda",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99, 104, 97, 114, 105, 116, 121, 95, 99, 97, 109, 112, 97,
+                  105, 103, 110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "new_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "last_campaign_pda",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "new_id",
+          "type": "string"
+        },
+        {
+          "name": "deadline",
+          "type": "i64"
+        },
+        {
+          "name": "goal",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "create_charity",
+      "discriminator": [193, 30, 89, 168, 17, 72, 111, 51],
+      "accounts": [
+        {
+          "name": "charity_pda",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [99, 104, 97, 114, 105, 116, 121]
+              },
+              {
+                "kind": "arg",
+                "path": "slug"
+              }
+            ]
+          }
+        },
+        {
+          "name": "data",
+          "writable": true
+        },
+        {
+          "name": "last_charity_pda",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "recipient_wallet_pda"
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "slug",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "donate",
+      "discriminator": [121, 186, 218, 211, 73, 70, 196, 180],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "donor_wallet_pda",
+          "writable": true
+        },
+        {
+          "name": "campaign_pda",
+          "writable": true
+        },
+        {
+          "name": "recipient_wallet_pda",
+          "writable": true
+        },
+        {
+          "name": "donation",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [100, 111, 110, 97, 116, 105, 111, 110]
+              },
+              {
+                "kind": "arg",
+                "path": "new_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "last_donation",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "token_acc_pda"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "spl_token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "new_id",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "discriminator": [175, 175, 109, 31, 13, 152, 155, 237],
+      "accounts": [
+        {
+          "name": "data",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100, 111, 110, 97, 116, 105, 111, 110, 45, 100, 97, 112, 112
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_acc_pda"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "refund",
+      "discriminator": [2, 96, 183, 251, 63, 208, 46, 46],
+      "accounts": [
+        {
+          "name": "signer",
+          "signer": true
+        },
+        {
+          "name": "donor_wallet_pda",
+          "writable": true
+        },
+        {
+          "name": "token_acc_pda",
+          "writable": true
+        },
+        {
+          "name": "donation",
+          "writable": true
+        },
+        {
+          "name": "campaign",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "spl_token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Campaign",
+      "discriminator": [50, 40, 49, 11, 157, 220, 229, 192]
+    },
+    {
+      "name": "Charity",
+      "discriminator": [229, 164, 231, 12, 25, 172, 91, 111]
+    },
+    {
+      "name": "Data",
+      "discriminator": [206, 156, 59, 188, 18, 79, 240, 232]
+    },
+    {
+      "name": "Donation",
+      "discriminator": [189, 210, 54, 77, 216, 85, 7, 68]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidSlugLength",
+      "msg": "Slug may only contain 16 characters or less."
+    },
+    {
+      "code": 6001,
+      "name": "SlugAsciiError",
+      "msg": "Slug must be ASCII characters only."
+    },
+    {
+      "code": 6002,
+      "name": "LastPdaError",
+      "msg": "Last linked list PDA should not contain next address."
+    },
+    {
+      "code": 6003,
+      "name": "CampaignIdAlreadyInUse",
+      "msg": "The campaign ID is already in use."
+    },
+    {
+      "code": 6004,
+      "name": "InvalidIdLength",
+      "msg": "Invalid ID length. max 10 characters."
+    },
+    {
+      "code": 6005,
+      "name": "InvalidDonationDestination",
+      "msg": "Invalid donation destination."
+    },
+    {
+      "code": 6006,
+      "name": "InvalidDonationOwner",
+      "msg": "Invalid donation owner."
+    },
+    {
+      "code": 6007,
+      "name": "InvalidDeadline",
+      "msg": "Deadline must be in the future."
+    },
+    {
+      "code": 6008,
+      "name": "GoalReached",
+      "msg": "The goal has already been reached."
+    },
+    {
+      "code": 6009,
+      "name": "DonationRefunded",
+      "msg": "The donation has already been refunded."
+    },
+    {
+      "code": 6010,
+      "name": "OnlyCampaignOwnerCanCancel",
+      "msg": "Only campaign owner can cancel the campaign."
+    },
+    {
+      "code": 6011,
+      "name": "CanNotDonateToCancelledCampaign",
+      "msg": "Can not donate to cancelled campaign."
+    },
+    {
+      "code": 6012,
+      "name": "DonationAlreadyRefunded",
+      "msg": "Donation already refunded."
+    },
+    {
+      "code": 6013,
+      "name": "NoConditionsForCancelledCampaign",
+      "msg": "No conditions for cancelled campaigns."
+    },
+    {
+      "code": 6014,
+      "name": "CampaignCharityMissMatch",
+      "msg": "Campaign and charity miss-match."
+    }
+  ],
+  "types": [
+    {
+      "name": "Campaign",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "campaign_id",
+            "type": "string"
+          },
+          {
+            "name": "charity_pda",
+            "type": "pubkey"
+          },
+          {
+            "name": "next_campaign_pda",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "number_of_donations",
+            "type": "u64"
+          },
+          {
+            "name": "donation_pda",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "deadline",
+            "type": "i64"
+          },
+          {
+            "name": "goal",
+            "type": "u64"
+          },
+          {
+            "name": "collected",
+            "type": "u64"
+          },
+          {
+            "name": "refunded",
+            "type": "u64"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "is_cancelled",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Charity",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "slug",
+            "type": "string"
+          },
+          {
+            "name": "next_charity_pda",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "number_of_campaigns",
+            "type": "u64"
+          },
+          {
+            "name": "campaign_pda",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "recipient_wallet_pda",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner_pubkey",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Data",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "number_of_charities",
+            "type": "u64"
+          },
+          {
+            "name": "charity_pda",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "token_acc_pda",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Donation",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "donor_wallet_pubkey",
+            "type": "pubkey"
+          },
+          {
+            "name": "donor_wallet_pda",
+            "type": "pubkey"
+          },
+          {
+            "name": "donation_id",
+            "type": "string"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "next_donation_pda",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "is_refunded",
+            "type": "bool"
+          },
+          {
+            "name": "campaign_pda",
+            "type": "pubkey"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "campaign_id",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}

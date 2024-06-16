@@ -3,5 +3,8 @@ dist
 .env
 access.log
 .next
-target
 .anchor
+
+target
+!donation_dapp.json
+

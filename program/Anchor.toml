@@ -14,7 +14,7 @@ donation_dapp = "yttwzEwuo6ov2pdJbHYn3FAGzXN4ZYxPe3x1KqB6NBm"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
