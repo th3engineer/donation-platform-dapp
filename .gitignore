@@ -3,3 +3,5 @@ dist
 .env
 access.log
 .next
+target
+.anchor
