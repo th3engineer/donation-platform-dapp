@@ -6,7 +6,7 @@ import { homeApi } from "api";
 import { Page, Header } from "components";
 
 const Home = () => {
-  const { activeCampaigns } = homeApi.getActiveCampaigns.useQuery(null);
+  const { campaings } = homeApi.getCampaigns.useQuery(null);
 
   return (
     <Page>
@@ -22,7 +22,7 @@ const Home = () => {
             gap: "16px",
           }}
         >
-          {activeCampaigns.campaigns.map((campaign) => (
+          {campaings.campaigns.map((campaign) => (
             <Box
               sx={{
                 padding: "16px 24px",

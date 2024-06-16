@@ -17,19 +17,19 @@ interface CampaignApi {
   charity_slug: string;
 }
 
-type GetActiveCampaignsResponse = {
+type getCampaignsResponse = {
   campaigns: CampaignApi[];
 };
 
-const getActiveCampaigns = queryEndpoint({
-  entity: "activeCampaigns",
+const getCampaigns = queryEndpoint({
+  entity: "campaings",
   queryKey: () => [],
   queryFn: async () =>
-    makeRequest<GetActiveCampaignsResponse>({
+    makeRequest<getCampaignsResponse>({
       method: "GET",
-      url: "http://localhost:3001/get-active-campaigns",
+      url: "http://localhost:3001/campaigns",
     }).then((response) => response.data),
   defaultValue: { campaigns: [] },
 });
 
-export { getActiveCampaigns };
+export { getCampaigns };

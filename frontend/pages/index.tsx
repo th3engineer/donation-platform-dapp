@@ -11,7 +11,7 @@ const HomePage = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const queryClient = new QueryClient();
 
-  await homeApi.getActiveCampaigns.prefetch(queryClient, null);
+  await homeApi.getCampaigns.prefetch(queryClient, null);
 
   const dehydratedState = dehydrate(queryClient);
 
