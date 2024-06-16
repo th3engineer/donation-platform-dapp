@@ -7,6 +7,9 @@ skip-lint = false
 [programs.localnet]
 donation_dapp = "yttwzEwuo6ov2pdJbHYn3FAGzXN4ZYxPe3x1KqB6NBm"
 
+[programs.devnet]
+donation_dapp = "yttwzEwuo6ov2pdJbHYn3FAGzXN4ZYxPe3x1KqB6NBm"
+
 [registry]
 url = "https://api.apr.dev"
 
