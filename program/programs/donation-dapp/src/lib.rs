@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Token, TokenAccount, Transfer as SplTransfer};
 
-declare_id!("yttwzEwuo6ov2pdJbHYn3FAGzXN4ZYxPe3x1KqB6NBm");
+declare_id!("EsCGgqjt6ZEoVL2qn2L271VgJJqVU3KViWwtAUHUdRgL");
 
 const MAX_SLUG_LENGTH: usize = 32;
 const MAX_ID_LENGTH: usize = 32;
